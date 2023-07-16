@@ -43,8 +43,25 @@ function sleep(ms) {
   }
 function game(e) {
     //let playerSelection = prompt("Choose your move");
+    const p = document.querySelector("p");
+    p.textContent='';
     const playerSelection = e.target.getAttribute('data-value');
-    alert("You chose " + playerSelection + "!");
+    let announcement1 = "You chose " + playerSelection + "!";
+    let announcement = '';
+    let typing = false;
+    if(typing==false){
+    (async function(){
+        
+        typing=true;
+        for (let i = 0; i < announcement1.length; i++) {
+            announcement = announcement1[i];
+            p.textContent += announcement;
+            await sleep(100);
+          }
+        
+    })();
+    }
+    typing=false;
     //return playRound(getComputerChoice(),playerSelection);
 }
 const h3 = document.querySelector("h3");
