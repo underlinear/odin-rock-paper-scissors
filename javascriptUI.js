@@ -43,7 +43,8 @@ function sleep(ms) {
   }
 function game(e) {
     //let playerSelection = prompt("Choose your move");
-    alert(e);
+    const playerSelection = e.target.getAttribute('data-value');
+    alert("You chose " + playerSelection + "!");
     //return playRound(getComputerChoice(),playerSelection);
 }
 const h3 = document.querySelector("h3");
@@ -64,8 +65,9 @@ for(let i=0;i<title.length;i++)
     await sleep(1000);
 }
 */
-const playerChoice = document.querySelectorAll(".option img");
-playerChoice.forEach(addEventListener('click',(e)=>game(e.target)));
+const playerChoice = Array.from(document.querySelectorAll(".option img"));
+console.log(playerChoice);
+playerChoice.forEach((image) => image.addEventListener('click',function(e){game(e)}));
 /*
 if(player==5)
 {
