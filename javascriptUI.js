@@ -72,7 +72,7 @@ function game(e) {
             }
             await sleep(2000);
             p.textContent = '';
-            let announcement3 = playRound(playerSelection,computerSelection);
+            let announcement3 = playRound(computerSelection,playerSelection);
             for (let i = 0; i < announcement3.length; i++) {
                 announcement = announcement3[i];
                 p.textContent += announcement;
