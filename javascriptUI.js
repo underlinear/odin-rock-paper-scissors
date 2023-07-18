@@ -72,6 +72,8 @@ function game(e) {
             }
             await sleep(2000);
             p.textContent = '';
+            let imagePlayerSelected = document.querySelector(`img[data-value="${playerSelection}"]`);
+            imagePlayerSelected.style.visibility="visible";
             let announcement3 = playRound(computerSelection,playerSelection);
             for (let i = 0; i < announcement3.length; i++) {
                 announcement = announcement3[i];
