@@ -1,5 +1,29 @@
-let player = 0, computer = 0;
+let playerLife = 1, computerLife = 1;
 let typing = false;
+
+function updateLifeCounter (){
+    const playerLifeDiv = document.querySelector('.playerLives');
+    const computerLifeDiv = document.querySelector('.computerLives');
+    while(playerLifeDiv.firstChild){
+        playerLifeDiv.firstChild.remove();
+    }
+    while(computerLifeDiv.firstChild){
+        computerLifeDiv.firstChild.remove();
+    }
+    for(let i=0;i<playerLife;i++)
+    {
+        const heart = document.createElement('img');
+        heart.src = 'images/playerHeart.png';
+        playerLifeDiv.appendChild(heart);
+    }
+    for(let j=0;j<computerLife;j++)
+    {
+        const heart = document.createElement('img');
+        heart.src = 'images/computerHeart.png';
+        computerLifeDiv.appendChild(heart);
+    }
+}
+
 function getComputerChoice (){
     let randomizer = Math.floor(Math.random() * 3);
     return randomizer == 0 ? "rock" : randomizer == 1 ? "paper" : "scissors";
@@ -14,7 +38,8 @@ function playRound (computerSelection,playerSelection){
     (playerMove == "paper" && computerMove == "scissors") ||
     (playerMove == "scissors" && computerMove == "rock") )
     {
-        computer++
+        playerLife--;
+        updateLifeCounter();
         return `You lose! ${computerMove.charAt(0).toUpperCase() + computerMove.slice(1)} beats ${playerMove.charAt(0).toUpperCase() + playerMove.slice(1)}.`;
     }
 
@@ -23,18 +48,14 @@ function playRound (computerSelection,playerSelection){
     (playerMove == "rock" && computerMove == "scissors") ||
     (playerMove == "scissors" && computerMove == "paper") )
     {
-        player++
+        computerLife--;
+        updateLifeCounter();
         return `You win! ${playerMove.charAt(0).toUpperCase() + playerMove.slice(1)} beats ${computerMove.charAt(0).toUpperCase() + computerMove.slice(1)}.`;
     }
 
     else  if
     (playerMove=="rock"||playerMove=="paper"||playerMove=="scissors"){
     return `Tie!`;
-    }
-
-    else
-    {
-        return "Invalid Input!";
     }
 } 
 
@@ -59,7 +80,7 @@ function game(e) {
             await sleep(2000);
             p.textContent = '';
             let computerSelection = getComputerChoice();
-            let images = document.querySelectorAll('img');
+            let images = document.querySelectorAll('.option img');
             images.forEach((image)=>{if(image.getAttribute('data-value')!=computerSelection)
             image.style.visibility="hidden";
         })
@@ -83,10 +104,33 @@ function game(e) {
             images.forEach((image)=>{
             image.style.visibility="visible";
         })
+            if(playerLife===0)
+            {
+                await sleep(2000);
+                const announcement4 = 'Game Over! Better luck next time! Thanks for playing!';
+                p.textContent = '';
+                for (let i = 0; i < announcement4.length; i++) {
+                    announcement = announcement4[i];
+                    p.textContent += announcement;
+                    await sleep(100);
+                }
+                return;
+            }
+            else if(computerLife===0)
+            {  
+                await sleep(2000);
+                const announcement4 = 'YOU WON! You are now the king of RNG. Thanks for playing!';
+                p.textContent = '';
+                for (let i = 0; i < announcement4.length; i++) {
+                    announcement = announcement4[i];
+                    p.textContent += announcement;
+                    await sleep(100);
+                }
+                return;
+            }
             typing=false;
         })();
     }
-    //return playRound(getComputerChoice(),playerSelection);
 }
 const h3 = document.querySelector("h3");
 let title = "Dolim's \"Rock Paper Scissors\" Project";
@@ -98,25 +142,7 @@ let titleLetter = '';
         await sleep(100);
     }
 })();
-/*
-for(let i=0;i<title.length;i++)
-{
-    titleLetter = title[i];
-    h3.textContent += titleLetter;
-    await sleep(1000);
-}
-*/
-const playerChoice = Array.from(document.querySelectorAll(".option img"));
-console.log(playerChoice);
-playerChoice.forEach((image) => image.addEventListener('click', function (e) { game(e) }));
-/*
-if(player==5)
-{
-    //console.log("You win!");
-}
 
-else
-{
-    //console.log("You lose!");
-}
-*/
+const playerChoice = Array.from(document.querySelectorAll(".option img"));
+updateLifeCounter ();
+playerChoice.forEach((image) => image.addEventListener('click', function (e) { game(e) }));
