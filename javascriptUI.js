@@ -1,4 +1,4 @@
-let playerLife = 1, computerLife = 1;
+let playerLife = 5, computerLife = 5;
 let typing = false;
 
 function updateLifeCounter (){
