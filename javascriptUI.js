@@ -75,7 +75,7 @@ function game(e) {
             for (let i = 0; i < announcement1.length; i++) {
                 announcement = announcement1[i];
                 p.textContent += announcement;
-                await sleep(100);
+                await sleep(75);
             }
             await sleep(2000);
             p.textContent = '';
@@ -84,12 +84,17 @@ function game(e) {
             images.forEach((image)=>{if(image.getAttribute('data-value')!=computerSelection)
             image.style.visibility="hidden";
         })
-            await sleep(100);
-            let announcement2 = `Computer chose ${computerSelection}!`;
+            await sleep(75);
+            let announcement2 = `Computer chose ${computerSelection}`;
+            if(playerSelection===computerSelection)
+            {
+                announcement2 += "\ as well...";
+            }
+            else announcement2 += "!";
             for (let i = 0; i < announcement2.length; i++) {
                 announcement = announcement2[i];
                 p.textContent += announcement;
-                await sleep(100);
+                await sleep(75);
             }
             await sleep(2000);
             p.textContent = '';
@@ -99,7 +104,7 @@ function game(e) {
             for (let i = 0; i < announcement3.length; i++) {
                 announcement = announcement3[i];
                 p.textContent += announcement;
-                await sleep(100);
+                await sleep(75);
             }
             images.forEach((image)=>{
             image.style.visibility="visible";
@@ -112,8 +117,10 @@ function game(e) {
                 for (let i = 0; i < announcement4.length; i++) {
                     announcement = announcement4[i];
                     p.textContent += announcement;
-                    await sleep(100);
+                    await sleep(75);
+                    
                 }
+                playerLife=5,computerLife=5;
                 return;
             }
             else if(computerLife===0)
@@ -124,9 +131,9 @@ function game(e) {
                 for (let i = 0; i < announcement4.length; i++) {
                     announcement = announcement4[i];
                     p.textContent += announcement;
-                    await sleep(100);
+                    await sleep(75);
                 }
-                return;
+                playerLife=5,computerLife=5;
             }
             typing=false;
         })();
