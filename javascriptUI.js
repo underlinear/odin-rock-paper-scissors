@@ -65,6 +65,7 @@ function sleep(ms) {
 function game(e) {
     //let playerSelection = prompt("Choose your move");
     if (typing == false) {
+        updateLifeCounter();
         typing = true;
         const p = document.querySelector("p");
         const playerSelection = e.target.getAttribute('data-value');
@@ -121,7 +122,7 @@ function game(e) {
                     
                 }
                 playerLife=5,computerLife=5;
-                return;
+
             }
             else if(computerLife===0)
             {  
